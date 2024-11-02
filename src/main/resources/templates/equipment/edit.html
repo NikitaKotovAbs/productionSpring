@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактировать Оборудование</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Редактировать Оборудование</h1>
+    <form th:action="@{/equipment/edit/{id}(id=${equipment.id})}" th:object="${equipment}" method="post">
+        <div class="form-group">
+            <label for="equipmentName">Название:</label>
+            <input type="text" id="equipmentName" th:field="*{equipmentName}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="equipmentType">Тип:</label>
+            <input type="text" id="equipmentType" th:field="*{equipmentType}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="status">Статус:</label>
+            <input type="text" id="status" th:field="*{status}" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить изменения</button>
+        <a href="/equipment" class="btn btn-secondary mt-3">Назад</a>
+    </form>
+</div>
+</body>
+</html>

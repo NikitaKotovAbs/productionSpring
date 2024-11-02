@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали Оборудования</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Детали Оборудования</h1>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">ID: <span th:text="${equipment.id}"></span></h5>
+            <p class="card-text">Название: <span th:text="${equipment.equipmentName}"></span></p>
+            <p class="card-text">Тип: <span th:text="${equipment.equipmentType}"></span></p>
+            <p class="card-text">Статус: <span th:text="${equipment.status}"></span></p>
+            <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+            <a th:href="@{/equipment/edit/{id}(id=${equipment.id})}" class="btn btn-secondary mt-3">Редактировать</a>
+                </div>
+            <a href="/equipment" class="btn btn-secondary mt-3">Назад</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

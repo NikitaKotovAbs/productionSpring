@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quality Control List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <a href="/" class="d-block mx-auto mb-4"> <!-- Укажите путь к главной странице -->
+        <img src="/img/logo.png" alt="Логотип компании" style="max-width: 150px;">
+    </a>
+    <h1 class="text-center mb-4">Контроль качества</h1>
+    <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+    <a href="/quality-control/add" class="btn btn-primary mb-3">Добавить запись</a>
+        </div>
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Дата инспекции</th>
+            <th>Результат</th>
+            <th>Комментарии</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="qc : ${qualityControls}">
+            <td th:text="${qc.id}"></td>
+            <td th:text="${qc.inspectionDate}"></td>
+            <td th:text="${qc.inspectionResult}"></td>
+            <td th:text="${qc.comments}"></td>
+            <td>
+                <a th:href="@{/quality-control/show/{id}(id=${qc.id})}" class="btn btn-info btn-sm">Показать</a>
+                <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+                    <a th:href="@{/quality-control/edit/{id}(id=${qc.id})}" class="btn btn-secondary btn-sm">Редактировать</a>
+                    <a th:href="@{/quality-control/delete/{id}(id=${qc.id})}" class="btn btn-danger btn-sm">Удалить</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователь</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <a href="/" class="d-block mx-auto mb-4">
+        <img src="/img/logo.png" alt="Логотип компании" style="max-width: 150px;">
+    </a>
+    <h1 class="text-center text-success mb-4">Информация о пользователе</h1>
+
+    <div class="card bg-secondary text-light mb-4">
+        <div class="card-header text-success">
+            <h5 class="mb-0">Данные роли</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${role.id}"></span></p>
+            <p><strong>Название роли:</strong> <span th:text="${role.roleName}"></span></p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+            <a href="/roles/edit/{id}" th:href="@{/roles/edit/{id}(id=${role.id})}" class="btn btn-warning">Редактировать</a>
+        </div>
+        <a href="/roles" class="btn btn-secondary">Назад к списку пользователей</a>
+    </div>
+</div>
+</body>
+</html>

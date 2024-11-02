@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали задачи</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5" style="max-width: 600px;">
+    <h1 class="text-center text-info">Детали задачи</h1>
+    <div class="card bg-secondary text-light shadow-sm p-4 mt-4">
+        <h2 th:text="${task.taskName}" class="mb-4 text-info">Имя задачи</h2>
+        <p><strong>ID:</strong> <span th:text="${task.id}"></span></p>
+        <p><strong>Дата назначения:</strong> <span th:text="${#dates.format(task.assignmentDate, 'yyyy-MM-dd')}"></span>
+        </p>
+        <p><strong>Статус:</strong> <span th:text="${task.status}"></span></p>
+        <p><strong>Пользователь:</strong>
+            <span th:if="${task.user != null}" th:text="${task.user.username}"></span>
+            <span th:if="${task.user == null}">Пользователь не назначен</span>
+        </p>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="/tasks" class="btn btn-secondary">Назад</a>
+            <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+                <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning text-dark">Редактировать</a>
+
+            <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-danger"
+               onclick="return confirm('Вы уверены, что хотите удалить эту задачу?');">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Добавить отчет</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Добавить новый отчет</h1>
+  <form th:action="@{/reports/add}" th:object="${report}" method="post">
+    <div class="form-group">
+      <label for="reportDate">Дата отчета:</label>
+      <input type="date" id="reportDate" th:field="*{reportDate}" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="producedQuantity">Произведенное количество:</label>
+      <input type="number" id="producedQuantity" th:field="*{producedQuantity}" class="form-control" min="0" required />
+    </div>
+    <div class="form-group">
+      <label for="defectiveQuantity">Количество дефектов:</label>
+      <input type="number" id="defectiveQuantity" th:field="*{defectiveQuantity}" class="form-control" min="0" required />
+    </div>
+    <div class="form-group">
+      <label for="task">Задача:</label>
+      <select name="taskId" id="task" class="form-control" required>
+        <option value="" disabled selected>Выберите задачу</option>
+        <option th:each="task : ${tasks}" th:value="${task.id}" th:text="${task.taskName}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+    <a href="/reports" class="btn btn-secondary mt-3">Назад</a>
+  </form>
+</div>
+</body>
+</html>

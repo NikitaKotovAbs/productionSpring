@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить проблему</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Добавить новую проблему</h1>
+    <form th:action="@{/problems/add}" th:object="${problem}" method="post">
+        <div class="form-group">
+            <label for="problemDescription">Описание проблемы:</label>
+            <input type="text" id="problemDescription" th:field="*{problemDescription}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="rootCause">Коренная причина:</label>
+            <input type="text" id="rootCause" th:field="*{rootCause}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="proposedSolution">Предложенное решение:</label>
+            <input type="text" id="proposedSolution" th:field="*{proposedSolution}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="implementationDate">Дата реализации:</label>
+            <input type="date" id="implementationDate" name="implementationDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="status">Статус:</label>
+            <input type="text" id="status" th:field="*{status}" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="user">Пользователь:</label>
+            <select name="userId" id="user" class="form-control" required>
+                <option value="" disabled selected>Выберите пользователя</option>
+                <option th:each="user : ${users}" th:value="${user.id}"
+                        th:text="${user.username}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+        <a href="/problems" class="btn btn-secondary mt-3">Назад</a>
+    </form>
+</div>
+</body>
+</html>

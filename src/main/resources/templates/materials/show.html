@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали Материала</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Детали Материала</h1>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">ID: <span th:text="${material.id}"></span></h5>
+            <p class="card-text">Название материала: <span th:text="${material.materialName}"></span></p>
+            <p class="card-text">Количество на складе: <span th:text="${material.quantityInStock}"></span></p>
+            <p class="card-text">Единица измерения: <span th:text="${material.unitOfMeasurement}"></span></p>
+        </div>
+    </div>
+    <a href="/materials" class="btn btn-secondary">Назад к списку</a>
+    <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+    <a th:href="@{/materials/edit/{id}(id=${material.id})}" class="btn btn-primary">Редактировать</a>
+        </div>
+</div>
+</body>
+</html>

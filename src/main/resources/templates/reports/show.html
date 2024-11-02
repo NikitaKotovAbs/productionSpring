@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Отчет</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Отчет о производительности</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">ID: <span th:text="${report.id}"></span></h5>
+            <p class="card-text">Дата отчета: <span th:text="${#dates.format(report.reportDate, 'yyyy-MM-dd')}"></span>
+            </p>
+            <p class="card-text">Произведенное количество: <span th:text="${report.producedQuantity}"></span></p>
+            <p class="card-text">Количество дефектов: <span th:text="${report.defectiveQuantity}"></span></p>
+            <p class="card-text">
+                <strong>Задача:</strong>
+                <span th:if="${report.task != null}" th:text="${report.task.taskName}"></span>
+                <span th:if="${report.task == null}">Отсутствует</span>
+            </p>
+            <a href="/reports" class="btn btn-secondary">Назад</a>
+            <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+                <a th:href="@{/reports/edit/{id}(id=${report.id})}" class="btn btn-warning">Редактировать</a>
+
+            <a th:href="@{/reports/delete/{id}(id=${report.id})}" class="btn btn-danger"
+               onclick="return confirm('Вы уверены, что хотите удалить?');">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

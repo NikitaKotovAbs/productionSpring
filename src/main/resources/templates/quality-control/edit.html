@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактировать Контроль качества</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Редактировать Контроль качества</h1>
+
+    <!-- Отображение ошибок -->
+<!--    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">-->
+<!--        <ul>-->
+<!--            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+
+    <form th:action="@{/quality-control/edit/{id}(id=${qualityControl.id})}" th:object="${qualityControl}" method="post">
+        <div class="form-group">
+            <label for="inspectionDate">Дата инспекции:</label>
+            <input type="date" id="inspectionDate" th:field="*{inspectionDate}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('inspectionDate')}" class="text-danger">
+                <span th:each="err : ${#fields.errors('inspectionDate')}" th:text="${err}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inspectionResult">Результат инспекции:</label>
+            <input type="text" id="inspectionResult" th:field="*{inspectionResult}" class="form-control" required />
+            <div th:if="${#fields.hasErrors('inspectionResult')}" class="text-danger">
+                <span th:each="err : ${#fields.errors('inspectionResult')}" th:text="${err}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comments">Комментарии:</label>
+            <textarea id="comments" th:field="*{comments}" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="task">Задача:</label>
+            <select th:field="*{task}" id="task" class="form-control" required>
+                <option th:each="task : ${tasks}" th:value="${task.id}"
+                        th:text="${task.taskName}"
+                        th:selected="${qualityControl.task != null and qualityControl.task.id == task.id}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+        <a href="/quality-control" class="btn btn-secondary mt-3">Назад</a>
+    </form>
+</div>
+</body>
+</html>

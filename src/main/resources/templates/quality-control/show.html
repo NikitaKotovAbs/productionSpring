@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Детали Контроля Качества</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Детали Контроля Качества</h1>
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-body">
+            <h5 class="card-title">ID: <span th:text="${qualityControl.id}"></span></h5>
+            <p class="card-text">Дата инспекции: <span
+                    th:text="${#dates.format(qualityControl.inspectionDate, 'yyyy-MM-dd')}"></span></p>
+            <p class="card-text">Результат инспекции: <span th:text="${qualityControl.inspectionResult}"></span></p>
+            <p class="card-text">Комментарии: <span th:text="${qualityControl.comments} ?: 'Отсутствуют'"></span></p>
+            <p class="card-text">
+                <strong>Задача:</strong>
+                <span th:if="${qualityControl.task != null}" th:text="${qualityControl.task.taskName}"></span>
+                <span th:if="${qualityControl.task == null}">Отсутствует</span>
+            </p>
+            <a href="/quality-control" class="btn btn-secondary">Назад к списку</a>
+            <div th:if="${#httpServletRequest.isUserInRole('ROLE_Builder')}">
+                <a th:href="@{/quality-control/edit/{id}(id=${qualityControl.id})}" class="btn btn-primary">Редактировать</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

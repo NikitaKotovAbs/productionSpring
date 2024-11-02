@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактировать задачу</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5 form-container p-4">
+    <h1 class="text-center mb-4">Редактировать задачу</h1>
+    <form th:action="@{/tasks/edit/{id}(id=${task.id})}" th:object="${task}" method="post">
+        <div class="form-group">
+            <label for="taskName">Имя задачи:</label>
+            <input type="text" id="taskName" th:field="*{taskName}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="assignmentDate">Дата назначения:</label>
+            <input type="date" id="assignmentDate" th:field="*{assignmentDate}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="status">Статус:</label>
+            <input type="text" id="status" th:field="*{status}" class="form-control" required/>
+        </div>
+        <div class="form-group">
+            <label for="user">Пользователь:</label>
+            <select th:field="*{user}" id="user" class="form-control">
+                <option th:each="user : ${users}" th:value="${user.id}"
+                        th:text="${user.username}"
+                        th:selected="${task.user != null and task.user.id == user.id}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+        <a href="/tasks" class="btn btn-secondary mt-3">Назад</a>
+    </form>
+</div>
+</body>
+</html>

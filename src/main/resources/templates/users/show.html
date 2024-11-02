@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователь</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container mt-5">
+    <a href="/" class="d-block mx-auto mb-4">
+        <img src="/img/logo.png" alt="Логотип компании" style="max-width: 150px;">
+    </a>
+    <h1 class="text-center text-success mb-4">Информация о пользователе</h1>
+
+    <div class="card bg-secondary text-light mb-4">
+        <div class="card-header text-success">
+            <h5 class="mb-0">Данные пользователя</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>ID:</strong> <span th:text="${user.id}"></span></p>
+            <p><strong>Имя пользователя:</strong> <span th:text="${user.username}"></span></p>
+            <p><strong>Роль:</strong> <span th:text="${user.role.roleName}"></span></p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="/users/edit/{id}" th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warning">Редактировать</a>
+        <a href="/users" class="btn btn-secondary">Назад к списку пользователей</a>
+    </div>
+</div>
+</body>
+</html>
